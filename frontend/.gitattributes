@@ -1,0 +1,32 @@
+# Tratamento de finais de linha
+* text=auto
+
+# Arquivos binários (imagens, PDFs, etc.)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.exe binary
+*.dll binary
+*.so binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Arquivos específicos do React Native/Expo
+*.keystore binary
+*.jks binary
+
+# Arquivos de vídeo
+*.mp4 binary
+*.mov binary
+*.avi binary
+
+# Arquivos de áudio
+*.mp3 binary
+*.wav binary
+*.aac binary
