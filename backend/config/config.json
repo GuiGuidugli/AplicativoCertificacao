@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "certificacao_user",
+    "password": "S3cur3P@ssw0rd!",
+    "database": "certificacao_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "certificacao_user",
+    "password": null,
+    "database": "certificacao_db_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "certificacao_user",
+    "password": "S3cur3P@ssw0rd",
+    "database": "certificacao_db_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

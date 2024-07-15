@@ -1,21 +1,21 @@
+require('dotenv').config();
 const express = require('express');
-const formidable = require('formidable');
-
+const bodyParser = require('body-parser');
+const { sequelize } = require('./models');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.post('/upload', (req, res) => {
-  const form = new formidable.IncomingForm();
+app.use(bodyParser.json());
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      res.status(500).send(err);
-      return;
-    }
-    res.json({ fields, files });
-  });
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
-app.listen(port, () => {
-  console.log('Server is running on port ${port}');
+// Sincronizar o banco de dados
+sequelize.sync().then(() => {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}).catch(err => {
+  console.error('Unable to connect to the database:', err);
 });
