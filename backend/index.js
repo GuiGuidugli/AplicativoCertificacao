@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const { sequelize } = require('./models');
+const { sequelize, User, Obra, Caixa } = require('./models'); // Importar os modelos e a instância do sequelize
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
 });
 
 // Sincronizar o banco de dados
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
+  console.log("Database & tables created!");
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });

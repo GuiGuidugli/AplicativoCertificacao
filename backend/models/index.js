@@ -1,40 +1,49 @@
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const { Sequelize, DataTypes } = require('sequelize');
+const dbConfig = require('../config/config.json').development;
 
-const db = {};
-
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  {
-    host: config.host,
-    dialect: config.dialect
-  }
-);
-
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    host: dbConfig.host,
+    dialect: dbConfig.dialect,
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// Definir o modelo User
+const User = sequelize.define('User', {
+    name: { type: DataTypes.STRING(100), allowNull: false },
+    email: { type: DataTypes.STRING(100), allowNull: false, unique: true },
+    phone_number: DataTypes.STRING(14),
+    password: { type: DataTypes.STRING, allowNull: false }
+});
 
-module.exports = db;
+// Definir o modelo Obra
+const Obra = sequelize.define('Obra', {
+    Poligono: DataTypes.STRING(50),
+    Estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} },
+    CNL: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
+    Localidade: DataTypes.STRING(50),
+    Data: DataTypes.DATE,
+    Descricao_SGM: DataTypes.STRING(100),
+    CTOs: DataTypes.INTEGER,
+    FACs: DataTypes.INTEGER,
+    Status: DataTypes.STRING(20)
+});
+
+// Definir o modelo Caixa
+const Caixa = sequelize.define('Caixa', {
+    Poligono: DataTypes.STRING(50),
+    Estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} } ,
+    CNL: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
+    Localidade: DataTypes.STRING(50),
+    Numero: DataTypes.INTEGER,
+    Data: DataTypes.DATE,
+    Status: DataTypes.STRING(20),
+    Coordenada: DataTypes.STRING,
+    Caixa_Sinal: DataTypes.STRING,
+    Caixa_Reserva: DataTypes.STRING
+});
+
+module.exports = {
+    sequelize,
+    User,
+    Obra,
+    Caixa
+};
