@@ -24,5 +24,13 @@ module.exports = (sequelize, DataTypes) => {
     facs: DataTypes.INTEGER,
     status: DataTypes.STRING(20)
   }, {});
+
+  Obra.associate = function(models) {
+    Obra.hasMany(models.Caixa, {
+      foreignKey: 'obraId',
+      as: 'caixas'
+    });
+  };
+
   return Obra;
 };

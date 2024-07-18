@@ -1,9 +1,20 @@
+require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
-const dbConfig = require('../config/config.json').development;
+const env = process.env.NODE_ENV || 'development';
+const dbConfig = require('../config/config.json')[env];
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
+// Substituir placeholders pelas variáveis de ambiente reais
+const config = {
+  username: process.env[dbConfig.username],
+  password: process.env[dbConfig.password],
+  database: process.env[dbConfig.database],
+  host: process.env[dbConfig.host],
+  dialect: dbConfig.dialect
+};
+
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect,
 });
 
 // Definir o modelo User
@@ -16,30 +27,48 @@ const User = sequelize.define('User', {
 
 // Definir o modelo Obra
 const Obra = sequelize.define('Obra', {
-    Poligono: DataTypes.STRING(50),
-    Estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} },
-    CNL: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
-    Localidade: DataTypes.STRING(50),
-    Data: DataTypes.DATE,
-    Descricao_SGM: DataTypes.STRING(100),
-    CTOs: DataTypes.INTEGER,
-    FACs: DataTypes.INTEGER,
-    Status: DataTypes.STRING(20)
+    poligono: DataTypes.STRING(50),
+    estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} },
+    cnl: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
+    localidade: DataTypes.STRING(50),
+    data: DataTypes.DATE,
+    descricao_sgm: DataTypes.STRING(100),
+    ctos: DataTypes.INTEGER,
+    facs: DataTypes.INTEGER,
+    status: DataTypes.STRING(20)
 });
 
 // Definir o modelo Caixa
 const Caixa = sequelize.define('Caixa', {
-    Poligono: DataTypes.STRING(50),
-    Estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} } ,
-    CNL: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
-    Localidade: DataTypes.STRING(50),
-    Numero: DataTypes.INTEGER,
-    Data: DataTypes.DATE,
-    Status: DataTypes.STRING(20),
-    Coordenada: DataTypes.STRING,
-    Caixa_Sinal: DataTypes.STRING,
-    Caixa_Reserva: DataTypes.STRING
+    poligono: DataTypes.STRING(50),
+    estacao: { type: DataTypes.STRING(2), validate: { min: 2, max: 2} } ,
+    cnl: { type: DataTypes.INTEGER, validate: { min: 10000, max: 12000 } },
+    localidade: DataTypes.STRING(50),
+    numero: DataTypes.INTEGER,
+    data: DataTypes.DATE,
+    status: DataTypes.STRING(20),
+    coordenada: DataTypes.STRING,
+    caixa_sinal: DataTypes.STRING,
+    caixa_reserva: DataTypes.STRING,
+    distribuicao: {
+        type: DataTypes.ENUM,
+        values: [
+            '1-8', '9-16', '17-24', '25-32', '33-40', '41-48', '49-56', '57-64'
+        ],
+        allowNull: false
+    },
+    obraId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Obras',
+            key: 'id'
+        }
+    }
 });
+
+// Definir associações
+Obra.hasMany(Caixa, { foreignKey: 'obraId', as: 'caixas' });
+Caixa.belongsTo(Obra, { foreignKey: 'obraId', as: 'obra' });
 
 module.exports = {
     sequelize,

@@ -19,14 +19,36 @@ module.exports = (sequelize, DataTypes) => {
     cnl: DataTypes.INTEGER,
     localidade: DataTypes.STRING(50),
     numero: DataTypes.INTEGER,
+    distribuicao: {
+      type: DataTypes.ENUM,
+      values: [
+        '1-8', '9-16', '17-24', '25-32', '33-40', '41-48', '49-56', '57-64'
+      ],
+      allowNull: false
+    },
     data: DataTypes.DATE,
     status: DataTypes.STRING(20),
     coordenada: DataTypes.STRING,
     caixa_sinal: DataTypes.STRING,
-    caixa_reserva: DataTypes.STRING
+    caixa_reserva: DataTypes.STRING,
+    obraId: {
+      type: DataTypes.INTEGER, 
+      references: {
+        model: 'Obra',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Caixa',
   });
+
+  Caixa.associate = function(models) {
+    Caixa.belongsTo(models.Obra, {
+      foreignKey: 'obraId',
+      as: 'obra'
+    });
+  };
+
   return Caixa;
 };

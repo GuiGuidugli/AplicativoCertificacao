@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "certificacao_user",
-    "password": "S3cur3P@ssw0rd!",
-    "database": "certificacao_db",
-    "host": "127.0.0.1",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME",
+    "host": "DB_HOST",
     "dialect": "postgres"
   },
   "test": {
-    "username": "certificacao_user",
-    "password": null,
-    "database": "certificacao_db_test",
-    "host": "127.0.0.1",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME_TEST",
+    "host": "DB_HOST",
     "dialect": "postgres"
   },
   "production": {
-    "username": "certificacao_user",
-    "password": "S3cur3P@ssw0rd",
-    "database": "certificacao_db_prod",
-    "host": "127.0.0.1",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME_PROD",
+    "host": "DB_HOST",
     "dialect": "postgres"
   }
 }
