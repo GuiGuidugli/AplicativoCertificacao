@@ -5,11 +5,11 @@ const dbConfig = require('../config/config.json')[env];
 
 // Substituir placeholders pelas variáveis de ambiente reais
 const config = {
-  username: process.env[dbConfig.username],
-  password: process.env[dbConfig.password],
-  database: process.env[dbConfig.database],
-  host: process.env[dbConfig.host],
-  dialect: dbConfig.dialect
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: dbConfig.dialect
 };
 
 const sequelize = new Sequelize(config.database, config.username, config.password, {

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { sequelize, User, Obra, Caixa } = require('./models'); // Importar os modelos e a instância do sequelize
