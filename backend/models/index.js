@@ -7,7 +7,7 @@ const dbConfig = require('../config/config.json')[env];
 const config = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: dbConfig.dialect
 };

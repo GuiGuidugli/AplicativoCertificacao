@@ -2,21 +2,21 @@
     "development": {
         "username": "DB_USERNAME",
         "password": "DB_PASSWORD",
-        "database": "DB_NAME",
+        "database": "DB_DATABASE",
         "host": "DB_HOST",
         "dialect": "postgres"
     },
     "test": {
         "username": "DB_USERNAME",
         "password": "DB_PASSWORD",
-        "database": "DB_NAME_TEST",
+        "database": "DB_TEST",
         "host": "DB_HOST",
         "dialect": "postgres"
     },
     "production": {
         "username": "DB_USERNAME",
         "password": "DB_PASSWORD",
-        "database": "DB_NAME_PROD",
+        "database": "DB_PROD",
         "host": "DB_HOST",
         "dialect": "postgres"
     }
