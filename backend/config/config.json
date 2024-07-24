@@ -4,20 +4,23 @@
         "password": "DB_PASSWORD",
         "database": "DB_DATABASE",
         "host": "DB_HOST",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "port": "DB_PORT"
     },
     "test": {
         "username": "DB_USERNAME",
         "password": "DB_PASSWORD",
         "database": "DB_TEST",
         "host": "DB_HOST",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "port": "DB_PORT"
     },
     "production": {
         "username": "DB_USERNAME",
         "password": "DB_PASSWORD",
         "database": "DB_PROD",
         "host": "DB_HOST",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "port": "DB_PORT"
     }
 }
